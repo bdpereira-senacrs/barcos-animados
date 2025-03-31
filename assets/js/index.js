@@ -3,11 +3,12 @@ const IMGS = `${RELATIVEPATH}imgs/`;
 
 import { oceanImags } from "./sprites/ocean/index.js";
 import { helicopterImgs } from "./sprites/helicopter/index.js";
-import { mouthManImg, mouthWaiterImg } from "./sprites/mouths/index.js";
+import { mouthManImg } from "./sprites/mouths/index.js";
 
 const animationNavio = document.querySelector(".front");
 const animationNs = document.querySelectorAll(".front .n");
 const animationP2 = document.querySelector(".front .p2");
+const animationP3 = document.querySelector(".front .p3");
 
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
@@ -94,6 +95,7 @@ const animateArmIn = [
     transform: "rotateZ(10deg)",
   },
 ];
+
 const animateArmInConfig = {
   duration: 1000,
   iterations: 1,
@@ -115,4 +117,87 @@ animationP2.addEventListener("mouseout", (e) => {
   animateArmInConfig.direction = "reverse";
   animationArm.animate(animateArmIn, animateArmInConfig);
   mouth = false;
+});
+
+if (animationP3)
+  animationP3.addEventListener("mouseover", (e) => {
+    const img = document.querySelector(".mouthWaiter img");
+    const tray = document.querySelector(".tray img");
+    tray.classList.toggle("high");
+    img.classList.toggle("mouth2");
+    img.classList.toggle("mouth1");
+    img.setAttribute(
+      "src",
+      "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_02.png"
+    );
+  });
+animationP3.addEventListener("mouseout", (e) => {
+  const img = document.querySelector(".mouthWaiter img");
+  const tray = document.querySelector(".tray img");
+  tray.classList.toggle("high");
+  img.classList.toggle("mouth2");
+  img.classList.toggle("mouth1");
+  img.setAttribute(
+    "src",
+    "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_01.png"
+  );
+});
+
+const animateLoadX = (el, d) => {
+  el.forEach((e, i) => {
+    e.animate(
+      [
+        {
+          transform: `translateX( calc( -1000px - ${e.offsetWidth}px ))`,
+        },
+        {
+          transform: "translateX(0)",
+        },
+      ],
+      {
+        duration: d[i] * 1000,
+        iterations: 1,
+        fill: "forwards",
+        direction: "normal",
+        ease: "ease-out",
+      }
+    );
+  });
+};
+
+// funções para excutar quando clicar
+const p1 = document.querySelector(".p1");
+const p2 = document.querySelector(".p2");
+const p3 = document.querySelector(".p3");
+const n1 = document.querySelector(".n1");
+const n2 = document.querySelector(".n2");
+const n3 = document.querySelector(".n3");
+const n4 = document.querySelector(".n4");
+const h = document.querySelector(".h");
+
+animateLoadX([n1, n2, n3, n4], [2, 2.5, 3, 2.75]);
+
+p1.addEventListener("click", (e) => {
+  alert("Mulher Clicada");
+});
+p2.addEventListener("click", (e) => {
+  alert("Homem Clicado");
+});
+p3.addEventListener("click", (e) => {
+  alert("Garçom Clicado");
+});
+n1.addEventListener("click", (e) => {
+  alert("Navio 1 Clicado");
+});
+n2.addEventListener("click", (e) => {
+  alert("Navio 2 Clicado");
+});
+n3.addEventListener("click", (e) => {
+  alert("Navio 3 Clicado");
+});
+n4.addEventListener("click", (e) => {
+  alert("Barquinho Clicado");
+});
+h.addEventListener("click", (e) => {
+  alert("Helicóptero Clicado");
 });
