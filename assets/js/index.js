@@ -1,4 +1,4 @@
-const RELATIVEPATH = "../assets/";
+const RELATIVEPATH = "./assets/";
 const IMGS = `${RELATIVEPATH}imgs/`;
 
 import { oceanImags } from "./sprites/ocean/index.js";
