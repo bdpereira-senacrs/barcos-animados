@@ -16,6 +16,21 @@ img {
   }
 }
 
+button {
+  border: 2px solid transparent;
+  background: transparent;
+  color: transparent;
+  font-size: 1px;
+  img {
+    cursor: pointer;
+  }
+  &:hover {
+    img {
+      filter: drop-shadow(0 0 10px gold);
+    }
+  }
+}
+
 .scene {
   height: 1080px;
   width: 1920px;
