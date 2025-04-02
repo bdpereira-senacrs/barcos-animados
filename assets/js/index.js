@@ -11,8 +11,16 @@ window.addEventListener("resize", (e) => {
   resizeWindow(".scene");
 });
 
-const animationNavio = document.querySelector(".front");
-const animationNs = document.querySelectorAll(".front .n");
+const front = document.querySelector(".front");
+const boats = front.querySelectorAll(".n");
+
+const ocean = document.querySelector(".mar");
+const heli = document.querySelector(".heli");
+
+const mouthMan = document.querySelector(".mouthMan img");
+const arm = document.querySelector(".arm img");
+const mouthWaiter = document.querySelector(".mouthWaiter img");
+const tray = document.querySelector(".tray img");
 
 const p2 = document.querySelector(".p2");
 const p3 = document.querySelector(".p3");
@@ -21,16 +29,18 @@ const n3 = document.querySelector(".n3");
 const n4 = document.querySelector(".n4");
 const h = document.querySelector(".h");
 
+const p2Img = document.querySelector(".p2 img");
+const p3Img = document.querySelector(".p3 img");
+const n2Img = document.querySelector(".n2 img");
+const n3Img = document.querySelector(".n3 img");
+const n4Img = document.querySelector(".n4 img");
+const hImg = document.querySelector(".h img");
+
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 };
 
-animationNavio.addEventListener("animationend", () => {
-  animationNavio.classList.add("wave");
-  animationNs.forEach((el) => {
-    el.classList.add("wave");
-  });
-});
+// inicio do controle das animações por sprites
 
 let globalId;
 
@@ -45,7 +55,6 @@ let frames = {
   ocean: 0,
   heli: 0,
   mouthMan: 0,
-  mouthWaiter: 0,
 };
 let fps = {
   ocean: 12,
@@ -60,14 +69,9 @@ let aux = {
   ocean: 0,
   heli: 0,
   mouthMan: 0,
-  mouthWaiter: 0,
 };
 
 const framesController = (timestamp) => {
-  const ocean = document.querySelector(".mar");
-  const heli = document.querySelector(".heli");
-  const mouthMan = document.querySelector(".mouthMan img");
-
   globalId = requestAnimationFrame(framesController);
 
   if (ocean) {
@@ -108,6 +112,9 @@ const framesController = (timestamp) => {
 
 globalId = requestAnimationFrame(framesController);
 
+// Final do controle das animações por sprites
+
+// Início do controle das animações de hover
 const animateArmIn = [
   {
     transform: "rotateZ(45deg)",
@@ -124,111 +131,102 @@ const animateArmInConfig = {
   direction: "normal",
 };
 
-if (p2)
+const toggleHigh = (nodes) => {
+  nodes.forEach((node) => {
+    node.classList.toggle("high");
+  });
+};
+
+if (p2) {
   p2.addEventListener("mouseover", (e) => {
-    const animationArm = document.querySelector(".arm img");
-    const img = document.querySelector(".mouthWaiter img");
-    const tray = document.querySelector(".tray img");
-    p3.querySelector("img").classList.toggle("high");
-    tray.classList.toggle("high");
-    img.classList.toggle("high");
-    img.classList.toggle("mouth2");
-    img.classList.toggle("mouth1");
-    img.setAttribute(
+    toggleHigh([p3Img, mouthWaiter, tray, arm, p2Img]);
+    mouthWaiter.classList.toggle("mouth2");
+    mouthWaiter.classList.toggle("mouth1");
+    mouthWaiter.setAttribute(
       "src",
       "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_02.png"
     );
 
     animateArmInConfig.direction = "normal";
-    animationArm.classList.toggle("high");
-    animationArm.animate(animateArmIn, animateArmInConfig);
+    arm.animate(animateArmIn, animateArmInConfig);
     mouth = true;
   });
-p2.addEventListener("mouseout", (e) => {
-  const mouthP2 = document.querySelector(".mouthMan img");
-  const animationArm = document.querySelector(".arm img");
-  const img = document.querySelector(".mouthWaiter img");
-  const tray = document.querySelector(".tray img");
-  p3.querySelector("img").classList.toggle("high");
-  tray.classList.toggle("high");
-  img.classList.toggle("high");
-  img.classList.toggle("mouth2");
-  img.classList.toggle("mouth1");
-  img.setAttribute(
-    "src",
-    "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_01.png"
-  );
+  p2.addEventListener("mouseout", (e) => {
+    toggleHigh([p3Img, tray, arm, p2Img]);
+    mouthWaiter.classList.toggle("mouth2");
+    mouthWaiter.classList.toggle("mouth1");
+    mouthWaiter.setAttribute(
+      "src",
+      "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_01.png"
+    );
+    animateArmInConfig.direction = "reverse";
+    arm.animate(animateArmIn, animateArmInConfig);
+    mouth = false;
+    mouthMan.setAttribute(
+      "src",
+      "./assets/imgs/pngs_casal_cruzeiro/boca_homem_01.png"
+    );
+  });
+}
 
-  animationArm.classList.toggle("high");
-  animateArmInConfig.direction = "reverse";
-  animationArm.animate(animateArmIn, animateArmInConfig);
-  mouth = false;
-  mouthP2.setAttribute(
-    "src",
-    "./assets/imgs/pngs_casal_cruzeiro/boca_homem_01.png"
-  );
-});
-
-if (p3)
+if (p3) {
   p3.addEventListener("mouseover", (e) => {
-    const animationArm = document.querySelector(".arm img");
-    const img = document.querySelector(".mouthWaiter img");
-    const tray = document.querySelector(".tray img");
-    p2.querySelector("img").classList.toggle("high");
-    tray.classList.toggle("high");
-    img.classList.toggle("mouth2");
-    img.classList.toggle("mouth1");
-    img.setAttribute(
+    toggleHigh([p3Img, tray, arm, p2Img]);
+    mouthWaiter.classList.toggle("mouth2");
+    mouthWaiter.classList.toggle("mouth1");
+    mouthWaiter.setAttribute(
       "src",
       "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_02.png"
     );
-
     animateArmInConfig.direction = "normal";
-    animationArm.classList.toggle("high");
-    animationArm.animate(animateArmIn, animateArmInConfig);
+    arm.animate(animateArmIn, animateArmInConfig);
     mouth = true;
   });
-p3.addEventListener("mouseout", (e) => {
-  const mouthP2 = document.querySelector(".mouthMan img");
-  const animationArm = document.querySelector(".arm img");
-  const img = document.querySelector(".mouthWaiter img");
-  const tray = document.querySelector(".tray img");
-  p2.querySelector("img").classList.toggle("high");
-  tray.classList.toggle("high");
-  img.classList.toggle("mouth2");
-  img.classList.toggle("mouth1");
-  img.setAttribute(
-    "src",
-    "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_01.png"
-  );
-  animationArm.classList.toggle("high");
-  animateArmInConfig.direction = "reverse";
-  animationArm.animate(animateArmIn, animateArmInConfig);
-  mouth = false;
-  mouthP2.setAttribute(
-    "src",
-    "./assets/imgs/pngs_casal_cruzeiro/boca_homem_01.png"
-  );
-});
+  p3.addEventListener("mouseout", (e) => {
+    toggleHigh([p3Img, tray, arm, p2Img]);
+    mouthWaiter.classList.toggle("mouth2");
+    mouthWaiter.classList.toggle("mouth1");
+    mouthWaiter.setAttribute(
+      "src",
+      "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_01.png"
+    );
+    animateArmInConfig.direction = "reverse";
+    arm.animate(animateArmIn, animateArmInConfig);
+    mouth = false;
+    mouthMan.setAttribute(
+      "src",
+      "./assets/imgs/pngs_casal_cruzeiro/boca_homem_01.png"
+    );
+  });
+}
+if (n3) {
+  n3.addEventListener("mouseover", (e) => toggleHigh([n3Img, n4Img]));
+  n3.addEventListener("mouseout", (e) => toggleHigh([n3Img, n4Img]));
+}
+if (n4) {
+  n4.addEventListener("mouseover", (e) => toggleHigh([n3Img, n4Img]));
+  n4.addEventListener("mouseout", (e) => toggleHigh([n3Img, n4Img]));
+}
+// Final do controle das animações de hover
 
-// funções para excutar quando clicar
+// função para abrir modal
+const openModal = (modal) => {
+  alert(`Abriu a modal ${modal}`);
+};
+
+// Auxiliares para abrir a modal correta
+p3.addEventListener("click", (e) => p2.click());
+n4.addEventListener("click", (e) => n3.click());
 
 p2.addEventListener("click", (e) => {
-  alert("Homem Clicado");
+  openModal("Homem e Garçom");
 });
-p3.addEventListener("click", (e) => {
-  alert("Garçom Clicado");
-});
-
 n2.addEventListener("click", (e) => {
-  alert("Navio 2 Clicado");
+  openModal("Navio 02");
 });
 n3.addEventListener("click", (e) => {
-  alert("Navio 3 Clicado");
-});
-n4.addEventListener("click", (e) => {
-  alert("Barquinho Clicado");
+  openModal("Navio 03 e barquinho");
 });
 h.addEventListener("click", (e) => {
-  alert("Helicóptero Clicado");
+  openModal("Helicóptero");
 });
