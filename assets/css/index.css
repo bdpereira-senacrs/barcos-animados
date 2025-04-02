@@ -46,6 +46,24 @@ button {
     right: 0;
     bottom: 0;
   }
+  .back {
+    .logos {
+      position: absolute;
+      top: 5%;
+      left: 0;
+      z-index: 4;
+      width: 50%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      .logo {
+        width: 25%;
+      }
+      .title {
+        width: 50%;
+      }
+    }
+  }
   .middle {
     position: absolute;
     display: grid;
@@ -304,4 +322,45 @@ button {
   100% {
     transform: rotateZ(5deg);
   }
+}
+
+.preloader {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  .anim {
+    background-image: url(../imgs/senac_loader.png);
+    width: 234px;
+    height: 238px;
+    animation: preloaderAnim 800ms steps(6) infinite;
+    background-repeat: no-repeat;
+    margin-bottom: 2rem;
+  }
+  p {
+    font-size: 1.4rem;
+    font-family: sans-serif;
+    font-weight: bolder;
+    color: #14438f;
+    text-align: center;
+  }
+}
+@keyframes preloaderAnim {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: -1410px;
+  }
+}
+
+.d-none {
+  display: none;
 }

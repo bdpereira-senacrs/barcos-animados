@@ -5,12 +5,14 @@ import { oceanImags } from "./sprites/ocean/index.js";
 import { helicopterImgs } from "./sprites/helicopter/index.js";
 import { mouthManImg } from "./sprites/mouths/index.js";
 import { resizeWindow } from "./resizeWindow/index.js";
+import { fadeIn, fadeOut } from "./animations/animations.js";
 
 resizeWindow(".scene");
 window.addEventListener("resize", (e) => {
   resizeWindow(".scene");
 });
 
+const scene = document.querySelector(".scene");
 const front = document.querySelector(".front");
 const boats = front.querySelectorAll(".n");
 
@@ -229,4 +231,13 @@ n3.addEventListener("click", (e) => {
 });
 h.addEventListener("click", (e) => {
   openModal("Helicóptero");
+});
+
+document.addEventListener("DOMContentLoaded", (e) => {
+  e.preventDefault();
+  setTimeout(() => {
+    const preloader = document.querySelector(".preloader");
+    fadeOut(preloader, null, 1000);
+    fadeIn(scene, preloader, 1000);
+  }, 1000);
 });
