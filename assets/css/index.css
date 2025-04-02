@@ -7,21 +7,31 @@ img {
   width: 100%;
   height: 100%;
   transition: filter 0.5s;
-  cursor: pointer;
-  &:hover,
   &.high {
     filter: drop-shadow(0 0 10px gold);
   }
 }
+button {
+  border: none;
+  background: transparent;
+  color: transparent;
+  font-size: 1px;
+  img {
+    cursor: pointer;
+  }
+  &:hover {
+    img {
+      filter: drop-shadow(0 0 10px gold);
+    }
+  }
+}
 
 .scene {
-  height: 100vh;
-  width: 100vw;
-  position: relative;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: 1080px;
+  width: 1920px;
+  position: fixed;
+  left: calc(50% - 1920px / 2);
+  top: calc(50% - 1080px / 2);
   overflow: hidden;
 
   .obj {
@@ -37,11 +47,6 @@ img {
     }
 
     .ilha {
-      transform: translateX(-100%);
-      animation-name: loadItensX;
-      animation-duration: 3s;
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: forwards;
     }
 
     .mar {
@@ -66,14 +71,11 @@ img {
       width: auto;
       height: auto;
       z-index: 1;
-      .wave {
-        animation-name: waveBoats;
-        animation-duration: 5s;
-        transform: translate(0, 0);
-        animation-timing-function: ease-in-out;
-        animation-fill-mode: backwards;
-        animation-iteration-count: infinite;
-      }
+      animation-name: waveBoats;
+      transform: translate(0, 0);
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: backwards;
+      animation-iteration-count: infinite;
     }
     .n1 {
       grid-row: span 7 / span 7;
@@ -86,7 +88,7 @@ img {
       grid-row: span 7 / span 7;
       grid-column: span 6 / span 6;
       grid-column-start: 21;
-      grid-row-start: 20;
+      grid-row-start: 21;
       animation-duration: 5.5s;
     }
     .n3 {
@@ -102,6 +104,9 @@ img {
       grid-column-start: 12;
       grid-row-start: 26;
       animation-duration: 6.5s;
+      .n {
+        transform: translate(0%, 10%);
+      }
     }
     .h {
       grid-row: span 12 / span 12;
@@ -112,10 +117,6 @@ img {
       z-index: 1;
       width: auto;
       height: auto;
-      animation-name: loadHeli;
-      animation-duration: 3s;
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: backwards;
       z-index: 1;
       .heli {
         animation-name: fly;
@@ -127,26 +128,26 @@ img {
     }
     &.wave {
       animation-name: wave;
-      animation-duration: 5s;
+      animation-duration: 7s;
       transform: translate(0, 0);
       animation-timing-function: ease-in-out;
       animation-fill-mode: backwards;
       animation-iteration-count: infinite;
     }
     .p1 {
-      grid-row: span 4 / span 20;
+      grid-row: span 4 / span 16;
       grid-column: span 3 / span 8;
       grid-column-start: 19;
-      grid-row-start: 25;
+      grid-row-start: 27;
       z-index: 2;
     }
     .hair-woman {
       grid-column: span 1 / span 1;
-      grid-row: span 2 / span 2;
+      grid-row: span 1 / span 1;
       grid-column-start: 21;
-      grid-row-start: 26;
+      grid-row-start: 29;
       z-index: 3;
-      transform: translate(-4px, 10px) rotateZ(8deg);
+      transform: translate(-10%, -70%);
       img {
         transform-origin: bottom left;
         animation-name: hair;
@@ -158,11 +159,11 @@ img {
       }
     }
     .p2 {
-      grid-row: span 4 / span 12;
+      grid-row: span 4 / span 10;
       grid-column: span 3 / span 10;
       grid-column-start: 27;
-      grid-row-start: 27;
-      transform: translate(-14px, -4px);
+      grid-row-start: 28;
+      transform: translate(-5%, -6%);
       z-index: 2;
     }
     .mouthMan {
@@ -171,17 +172,18 @@ img {
       grid-column-start: 28;
       grid-row-start: 29;
       z-index: 3;
-      transform: translate(13px, -8px);
+      transform: translate(45%, 0%);
       img {
-        width: 16px;
-        height: 6px;
+        width: inherit;
+        height: inherit;
       }
     }
     .hair-man {
       grid-column: span 1 / span 1;
-      grid-row: span 2 / span 2;
+      grid-row: span 2 / span 1;
       grid-column-start: 28;
-      grid-row-start: 26;
+      grid-row-start: 27;
+      transform: translate(0%, 35%);
       z-index: 3;
       img {
         transform-origin: bottom left;
@@ -195,9 +197,9 @@ img {
     }
     .arm {
       grid-column: span 2 / span 2;
-      grid-row: span 4 / span 6;
+      grid-row: span 4 / span 5;
       grid-column-start: 29;
-      grid-row-start: 25;
+      grid-row-start: 26;
       z-index: 2;
       img {
         transform-origin: bottom left;
@@ -220,69 +222,38 @@ img {
       grid-row: span 4 / span 19;
       grid-column: span 3 / span 3;
       grid-column-start: 32;
-      grid-row-start: 17;
+      grid-row-start: 20;
       z-index: 1;
-      transform: translate(-8px, 0);
     }
     .mouthWaiter {
       grid-column: span 1 / span 1;
       grid-row: span 1 / span 1;
       grid-column-start: 33;
-      grid-row-start: 20;
+      grid-row-start: 23;
       z-index: 3;
-      transform: translate(-2px, 0);
+      img {
+        width: inherit;
+        height: inherit;
+      }
       .mouth1 {
-        width: 18px;
-        height: 8px;
+        transform: translate(45%, -55%);
       }
       .mouth2 {
-        width: 18px;
-        height: 8px;
-        transform: translate(0, -2px);
+        transform: translate(25%, -50%);
       }
     }
     .tray {
       grid-row: span 3 / span 3;
       grid-column: span 2 / span 2;
       grid-column-start: 31;
-      grid-row-start: 24;
-      z-index: 1;
+      grid-row-start: 25;
+      z-index: 3;
+      transform: translate(10%, 0);
     }
     .navio {
       touch-action: none;
       pointer-events: none;
     }
-    .loadY {
-      animation-name: loadItensY;
-      animation-duration: 4.5s;
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: backwards;
-    }
-  }
-}
-
-@keyframes loadItensX {
-  0% {
-    transform: translateX(-10000px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-@keyframes loadHeli {
-  0% {
-    transform: translateX(1000px) rotateZ(-30deg);
-  }
-  100% {
-    transform: translateX(0) rotateZ(-30deg);
-  }
-}
-@keyframes loadItensY {
-  0% {
-    transform: translateY(1000px);
-  }
-  100% {
-    transform: translateY(0);
   }
 }
 
@@ -291,13 +262,13 @@ img {
     transform: translate(0, 0);
   }
   25% {
-    transform: translate(3px, 3px);
+    transform: translate(0, 3px);
   }
   50% {
     transform: translate(0, 0);
   }
   75% {
-    transform: translate(-3px, 3px);
+    transform: translate(0, 3px);
   }
   100% {
     transform: translate(0, 0);
@@ -306,13 +277,13 @@ img {
 
 @keyframes waveBoats {
   0% {
-    transform: rotateZ(5deg) translateX(5px);
+    transform: rotateZ(5deg) translate(5px, 0);
   }
   50% {
-    transform: rotateZ(-5deg) translateX(-5px);
+    transform: rotateZ(-5deg) translate(-5px, 5px);
   }
   100% {
-    transform: rotateZ(5deg) translateX(5px);
+    transform: rotateZ(5deg) translate(5px, 0);
   }
 }
 

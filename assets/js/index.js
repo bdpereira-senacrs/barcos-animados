@@ -1,14 +1,25 @@
-const RELATIVEPATH = "../assets/";
+const RELATIVEPATH = "./assets/";
 const IMGS = `${RELATIVEPATH}imgs/`;
 
 import { oceanImags } from "./sprites/ocean/index.js";
 import { helicopterImgs } from "./sprites/helicopter/index.js";
 import { mouthManImg } from "./sprites/mouths/index.js";
+import { resizeWindow } from "./resizeWindow/index.js";
+
+resizeWindow(".scene");
+window.addEventListener("resize", (e) => {
+  resizeWindow(".scene");
+});
 
 const animationNavio = document.querySelector(".front");
 const animationNs = document.querySelectorAll(".front .n");
-const animationP2 = document.querySelector(".front .p2");
-const animationP3 = document.querySelector(".front .p3");
+
+const p2 = document.querySelector(".p2");
+const p3 = document.querySelector(".p3");
+const n2 = document.querySelector(".n2");
+const n3 = document.querySelector(".n3");
+const n4 = document.querySelector(".n4");
+const h = document.querySelector(".h");
 
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
@@ -23,7 +34,10 @@ animationNavio.addEventListener("animationend", () => {
 
 let globalId;
 
-let zero = performance.now();
+let then = {
+  ocean: performance.now(),
+  heli: performance.now(),
+};
 let mouth = false;
 const iterationMoth = [10, 20, 30, 40, 60, 120];
 
@@ -32,6 +46,14 @@ let frames = {
   heli: 0,
   mouthMan: 0,
   mouthWaiter: 0,
+};
+let fps = {
+  ocean: 12,
+  heli: 12,
+};
+let interval = {
+  ocean: 1000 / fps.ocean,
+  heli: 1000 / fps.heli,
 };
 
 let aux = {
@@ -46,29 +68,29 @@ const framesController = (timestamp) => {
   const heli = document.querySelector(".heli");
   const mouthMan = document.querySelector(".mouthMan img");
 
+  globalId = requestAnimationFrame(framesController);
+
   if (ocean) {
-    ocean.setAttribute("src", `${IMGS}${oceanImags[frames.ocean]}`);
-    if (aux.ocean < 6) {
-      aux.ocean++;
-    } else {
-      aux.ocean = 0;
+    let e = timestamp - then.ocean;
+    if (e > interval.ocean) {
+      then.ocean = timestamp - (e % interval.ocean);
+      ocean.setAttribute("src", `${IMGS}${oceanImags[frames.ocean]}`);
       frames.ocean++;
+      frames.ocean == oceanImags.length
+        ? (frames.ocean = 0)
+        : (frames.ocean = frames.ocean);
     }
-    frames.ocean == oceanImags.length
-      ? (frames.ocean = 0)
-      : (frames.ocean = frames.ocean);
   }
   if (heli) {
-    heli.setAttribute("src", `${IMGS}${helicopterImgs[frames.heli]}`);
-    if (aux.heli < 2) {
-      aux.heli++;
-    } else {
-      aux.heli = 0;
+    let e = timestamp - then.heli;
+    if (e > interval.heli) {
+      then.heli = timestamp - (e % interval.heli);
+      heli.setAttribute("src", `${IMGS}${helicopterImgs[frames.heli]}`);
       frames.heli++;
+      frames.heli == helicopterImgs.length
+        ? (frames.heli = 0)
+        : (frames.heli = frames.heli);
     }
-    frames.heli == helicopterImgs.length
-      ? (frames.heli = 0)
-      : (frames.heli = frames.heli);
   }
   if (mouthMan && mouth) {
     mouthMan.setAttribute("src", `${IMGS}${mouthManImg[frames.mouthMan]}`);
@@ -82,7 +104,6 @@ const framesController = (timestamp) => {
       ? (frames.mouthMan = 0)
       : (frames.mouthMan = frames.mouthMan);
   }
-  globalId = requestAnimationFrame(framesController);
 };
 
 globalId = requestAnimationFrame(framesController);
@@ -103,26 +124,57 @@ const animateArmInConfig = {
   direction: "normal",
 };
 
-if (animationP2)
-  animationP2.addEventListener("mouseover", (e) => {
+if (p2)
+  p2.addEventListener("mouseover", (e) => {
     const animationArm = document.querySelector(".arm img");
+    const img = document.querySelector(".mouthWaiter img");
+    const tray = document.querySelector(".tray img");
+    p3.querySelector("img").classList.toggle("high");
+    tray.classList.toggle("high");
+    img.classList.toggle("high");
+    img.classList.toggle("mouth2");
+    img.classList.toggle("mouth1");
+    img.setAttribute(
+      "src",
+      "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_02.png"
+    );
+
     animateArmInConfig.direction = "normal";
     animationArm.classList.toggle("high");
     animationArm.animate(animateArmIn, animateArmInConfig);
     mouth = true;
   });
-animationP2.addEventListener("mouseout", (e) => {
+p2.addEventListener("mouseout", (e) => {
+  const mouthP2 = document.querySelector(".mouthMan img");
   const animationArm = document.querySelector(".arm img");
+  const img = document.querySelector(".mouthWaiter img");
+  const tray = document.querySelector(".tray img");
+  p3.querySelector("img").classList.toggle("high");
+  tray.classList.toggle("high");
+  img.classList.toggle("high");
+  img.classList.toggle("mouth2");
+  img.classList.toggle("mouth1");
+  img.setAttribute(
+    "src",
+    "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_01.png"
+  );
+
   animationArm.classList.toggle("high");
   animateArmInConfig.direction = "reverse";
   animationArm.animate(animateArmIn, animateArmInConfig);
   mouth = false;
+  mouthP2.setAttribute(
+    "src",
+    "./assets/imgs/pngs_casal_cruzeiro/boca_homem_01.png"
+  );
 });
 
-if (animationP3)
-  animationP3.addEventListener("mouseover", (e) => {
+if (p3)
+  p3.addEventListener("mouseover", (e) => {
+    const animationArm = document.querySelector(".arm img");
     const img = document.querySelector(".mouthWaiter img");
     const tray = document.querySelector(".tray img");
+    p2.querySelector("img").classList.toggle("high");
     tray.classList.toggle("high");
     img.classList.toggle("mouth2");
     img.classList.toggle("mouth1");
@@ -130,10 +182,18 @@ if (animationP3)
       "src",
       "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_02.png"
     );
+
+    animateArmInConfig.direction = "normal";
+    animationArm.classList.toggle("high");
+    animationArm.animate(animateArmIn, animateArmInConfig);
+    mouth = true;
   });
-animationP3.addEventListener("mouseout", (e) => {
+p3.addEventListener("mouseout", (e) => {
+  const mouthP2 = document.querySelector(".mouthMan img");
+  const animationArm = document.querySelector(".arm img");
   const img = document.querySelector(".mouthWaiter img");
   const tray = document.querySelector(".tray img");
+  p2.querySelector("img").classList.toggle("high");
   tray.classList.toggle("high");
   img.classList.toggle("mouth2");
   img.classList.toggle("mouth1");
@@ -141,54 +201,25 @@ animationP3.addEventListener("mouseout", (e) => {
     "src",
     "./assets/imgs/pngs_casal_cruzeiro/boca_garcon_01.png"
   );
+  animationArm.classList.toggle("high");
+  animateArmInConfig.direction = "reverse";
+  animationArm.animate(animateArmIn, animateArmInConfig);
+  mouth = false;
+  mouthP2.setAttribute(
+    "src",
+    "./assets/imgs/pngs_casal_cruzeiro/boca_homem_01.png"
+  );
 });
-
-const animateLoadX = (el, d) => {
-  el.forEach((e, i) => {
-    e.animate(
-      [
-        {
-          transform: `translateX( calc( -1000px - ${e.offsetWidth}px ))`,
-        },
-        {
-          transform: "translateX(0)",
-        },
-      ],
-      {
-        duration: d[i] * 1000,
-        iterations: 1,
-        fill: "forwards",
-        direction: "normal",
-        ease: "ease-out",
-      }
-    );
-  });
-};
 
 // funções para excutar quando clicar
-const p1 = document.querySelector(".p1");
-const p2 = document.querySelector(".p2");
-const p3 = document.querySelector(".p3");
-const n1 = document.querySelector(".n1");
-const n2 = document.querySelector(".n2");
-const n3 = document.querySelector(".n3");
-const n4 = document.querySelector(".n4");
-const h = document.querySelector(".h");
 
-animateLoadX([n1, n2, n3, n4], [2, 2.5, 3, 2.75]);
-
-p1.addEventListener("click", (e) => {
-  alert("Mulher Clicada");
-});
 p2.addEventListener("click", (e) => {
   alert("Homem Clicado");
 });
 p3.addEventListener("click", (e) => {
   alert("Garçom Clicado");
 });
-n1.addEventListener("click", (e) => {
-  alert("Navio 1 Clicado");
-});
+
 n2.addEventListener("click", (e) => {
   alert("Navio 2 Clicado");
 });
