@@ -13,13 +13,17 @@ const proportionScale = (width, height) => {
 
 export const resizeWindow = (selector = ".game") => {
   const proporcao1920 = proportionScale(1920, 1080)[0];
+  const node = document.querySelector(selector);
 
-  document.querySelector(selector).style.transform = `scale(${proporcao1920})`;
-  document.querySelector(selector).style.transformOrigin = `center center`;
+  node.style.transform = `scale(${proporcao1920})`;
+  node.style.transformOrigin = `center center`;
 
   let proporcao900;
   if (window.visualViewport.width < 992) {
+    const btnsMobile = document.querySelector(".btnsMobile");
     proporcao900 = proportionScale(900, 576)[0];
+    btnsMobile.style.top = `${1080 * proporcao1920}px`;
+    node.style.transformOrigin = `top center`;
   } else {
     proporcao900 = 1;
   }

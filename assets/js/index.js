@@ -31,6 +31,11 @@ const n3 = document.querySelector(".n3");
 const n4 = document.querySelector(".n4");
 const h = document.querySelector(".h");
 
+const btn1 = document.querySelector(".btn1");
+const btn2 = document.querySelector(".btn2");
+const btn3 = document.querySelector(".btn3");
+const btn4 = document.querySelector(".btn4");
+
 const p2Img = document.querySelector(".p2 img");
 const p3Img = document.querySelector(".p3 img");
 const n2Img = document.querySelector(".n2 img");
@@ -219,6 +224,26 @@ const openModal = (modal) => {
 // Auxiliares para abrir a modal correta
 p3.addEventListener("click", (e) => p2.click());
 n4.addEventListener("click", (e) => n3.click());
+btn1.addEventListener("click", (e) => {
+  e.preventDefault();
+  btn1.classList.toggle("click");
+  n3.click();
+});
+btn2.addEventListener("click", (e) => {
+  e.preventDefault();
+  btn2.classList.toggle("click");
+  n2.click();
+});
+btn3.addEventListener("click", (e) => {
+  e.preventDefault();
+  btn3.classList.toggle("click");
+  h.click();
+});
+btn4.addEventListener("click", (e) => {
+  e.preventDefault();
+  btn4.classList.toggle("click");
+  p2.click();
+});
 
 p2.addEventListener("click", (e) => {
   openModal("Homem e Garçom");
