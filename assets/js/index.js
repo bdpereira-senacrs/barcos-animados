@@ -226,22 +226,22 @@ p3.addEventListener("click", (e) => p2.click());
 n4.addEventListener("click", (e) => n3.click());
 btn1.addEventListener("click", (e) => {
   e.preventDefault();
-  btn1.classList.toggle("click");
+  btn1.classList.add("click");
   n3.click();
 });
 btn2.addEventListener("click", (e) => {
   e.preventDefault();
-  btn2.classList.toggle("click");
+  btn2.classList.add("click");
   n2.click();
 });
 btn3.addEventListener("click", (e) => {
   e.preventDefault();
-  btn3.classList.toggle("click");
+  btn3.classList.add("click");
   h.click();
 });
 btn4.addEventListener("click", (e) => {
   e.preventDefault();
-  btn4.classList.toggle("click");
+  btn4.classList.add("click");
   p2.click();
 });
 
