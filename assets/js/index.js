@@ -246,15 +246,19 @@ btn4.addEventListener("click", (e) => {
 });
 
 p2.addEventListener("click", (e) => {
+  p2.classList.add("click");
   openModal("Homem e Garçom");
 });
 n2.addEventListener("click", (e) => {
+  n2.classList.add("click");
   openModal("Navio 02");
 });
 n3.addEventListener("click", (e) => {
+  n3.classList.add("click");
   openModal("Navio 03 e barquinho");
 });
 h.addEventListener("click", (e) => {
+  h.classList.add("click");
   openModal("Helicóptero");
 });
 
