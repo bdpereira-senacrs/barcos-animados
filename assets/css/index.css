@@ -72,6 +72,9 @@ img {
   width: 100%;
   height: auto;
   overflow: hidden;
+  top: 0;
+  bottom: 0;
+  margin: auto;
   &::before {
     content: "";
     aspect-ratio: 16/9;
