@@ -167,8 +167,7 @@ img {
       .h {
         position: relative;
         &::before {
-          content: "";
-          background-image: url("../imgs/circle-question-regular.svg");
+          content: url("../imgs/circle-question-regular.svg");
           width: 60px;
           height: 60px;
           position: absolute;
@@ -176,14 +175,19 @@ img {
           left: 50%;
           transform: translate(-50%, -100%);
           border-radius: 50%;
-          border: 3px solid #fff;
-          background-color: #fff;
+          border: 3px solid rgba(255, 242, 213, 1);
+          background: repeating-linear-gradient(
+            0deg,
+            rgba(255, 242, 213, 1) 10px,
+            rgba(251, 228, 189, 1) 20px
+          );
           @media (max-width: 991px) {
             display: none;
           }
         }
         &.click {
           &::before {
+            content: "";
             background-image: url("../imgs/check.svg");
             background-color: transparent;
             border-color: transparent;
